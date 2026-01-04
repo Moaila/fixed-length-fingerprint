@@ -1,0 +1,11 @@
+{"name":"gmfs_white_base","roi_mode":"PYFING_GMFS","mask_apply_mode":"white","crop_sizes":[340,370,400,430],"angles":[-15,0,15],"alpha":5.0,"tex_spike_clip_enable":true,"tex_delta":0.08,"minu_gap_lam":0.35}
+{"name":"dense_angles_7","roi_mode":"PYFING_GMFS","mask_apply_mode":"white","crop_sizes":[340,370,400,430],"angles":[-25,-15,-5,0,5,15,25]}
+{"name":"alpha3","roi_mode":"PYFING_GMFS","mask_apply_mode":"white","alpha":3.0}
+{"name":"alpha4","roi_mode":"PYFING_GMFS","mask_apply_mode":"white","alpha":4.0}
+{"name":"alpha6","roi_mode":"PYFING_GMFS","mask_apply_mode":"white","alpha":6.0}
+{"name":"alpha8","roi_mode":"PYFING_GMFS","mask_apply_mode":"white","alpha":8.0}
+{"name":"delta0.05","roi_mode":"PYFING_GMFS","mask_apply_mode":"white","tex_delta":0.05}
+{"name":"delta0.10","roi_mode":"PYFING_GMFS","mask_apply_mode":"white","tex_delta":0.10}
+{"name":"delta0.12","roi_mode":"PYFING_GMFS","mask_apply_mode":"white","tex_delta":0.12}
+{"name":"lam0.15","roi_mode":"PYFING_GMFS","mask_apply_mode":"white","minu_gap_lam":0.15}
+{"name":"lam0.50","roi_mode":"PYFING_GMFS","mask_apply_mode":"white","minu_gap_lam":0.50}

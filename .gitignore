@@ -1,0 +1,71 @@
+# =========================
+# Python / Build
+# =========================
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+build/
+dist/
+.eggs/
+.cache/
+.mypy_cache/
+
+# =========================
+# 虚拟环境
+# =========================
+.venv/
+env/
+biometrics_venv/
+conda/
+.anaconda/
+.env
+
+# =========================
+# IDE / Editor
+# =========================
+.vscode/
+.idea/
+.spyproject/
+*.swp
+*.swo
+.DS_Store
+
+# =========================
+# Jupyter
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# Logs / Reports
+# =========================
+*.log
+reports/
+htmlcov/
+.coverage*
+coverage.xml
+
+# =========================
+# 数据与实验结果（核心）
+# =========================
+data/
+examples/
+lwh/examples/
+outputs/
+results/
+runs/
+
+# =========================
+# 模型权重（核心）
+# =========================
+*.pyt
+*.pt
+*.pth
+*.ckpt
+*.onnx
+
+# =========================
+# Notebooks 生成内容
+# =========================
+notebooks/example-model/
+notebooks/DET_curve*
