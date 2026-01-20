@@ -23,8 +23,13 @@ import copy
 from scipy.special import erfinv
 from collections import namedtuple
 import matplotlib.pyplot as mpl
-from tikzplotlib import save as tikz_save
+try:
+    from tikzplotlib import save as tikz_save
+except Exception:
+    tikz_save = None
+
 import logging
+
 
 
 __license__ = "HDA-OPEN-RESEARCH"
@@ -679,7 +684,7 @@ class DET:
             replace_tick_label_notation(tick_textpos)
         """
 
-        tikz_save(
+        if tikz_save is not None:tikz_save(
             outfilename,
             figurewidth=width,
             figureheight=height,

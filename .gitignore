@@ -54,6 +54,7 @@ lwh/examples/
 outputs/
 results/
 runs/
+ssh/minutia_output
 
 # =========================
 # 模型权重（核心）

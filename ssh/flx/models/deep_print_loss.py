@@ -147,6 +147,7 @@ class DeepPrintLoss_Minu(nn.Module):
         self.minu_map_loss_sum = 0
 
 
+
 class DeepPrintLoss_TexMinu(nn.Module):
     """
     The weights that are use for the
@@ -211,7 +212,6 @@ class DeepPrintLoss_TexMinu(nn.Module):
         self.texture_loss_fun.reset_recorded_loss()
         self.minu_loss_fun.reset_recorded_loss()
         self.minu_map_loss_sum = 0
-
 
 def main():
     loss = DeepPrintLoss_Tex(100)

@@ -6,16 +6,19 @@ import torch.nn.functional as F
 import cv2
 from sklearn.metrics import roc_curve
 
-
 sys.path.append(os.getcwd())
 from flx.extractor.fixed_length_extractor import get_DeepPrint_TexMinu
 from flx.setup.datasets import get_fvc2004_db1a
 from flx.data.image_helpers import pad_and_resize_to_deepprint_input_size
 from flx.data.image_loader import FVC2004Loader
 
+"""
+TTA+八折验证
+"""
+
 # ========================= 路径配置 =========================
-MODEL_PATH = "./models/best_model.pyt"
-DATA_DIR   = "./data/fingerprints/FVC2000/Dbs/Db1_a"
+MODEL_PATH = "./ssh/example-model/best_model.pyt"
+DATA_DIR   = "./ssh/data/fingerprints/Db1_a"
 
 # ========================= 视角增强（TTA） =========================
 TTA_SCALES = [340, 370, 400, 430]
@@ -30,6 +33,7 @@ TEX_PAIR_TOPK  = 6
 
 TEX_SPIKE_CLIP_ENABLE = True
 TEX_DELTA = 0.08
+
 
 # ============================================================
 #                     评估工具
@@ -105,7 +109,7 @@ def load_model():
     md = extractor.model.state_dict()
     md.update({k: v for k, v in sd.items() if k in md and v.shape == md[k].shape})
     extractor.model.load_state_dict(md)
-    extractor.model.eval().cpu()
+    extractor.model.eval().cuda()
     return extractor
 
 @torch.no_grad()
@@ -125,8 +129,8 @@ def extract_views_tex_minu(extractor):
             t = tex._array if torch.is_tensor(tex._array) else torch.from_numpy(tex._array)
             m = minu._array if torch.is_tensor(minu._array) else torch.from_numpy(minu._array)
 
-            tex_views.append(F.normalize(t.cpu(), p=2, dim=1))   # [800,256]
-            minu_views.append(F.normalize(m.cpu(), p=2, dim=1))  # [800,256]
+            tex_views.append(F.normalize(t.cuda(), p=2, dim=1))   # [800,256]
+            minu_views.append(F.normalize(m.cuda(), p=2, dim=1))  # [800,256]
 
     return torch.stack(tex_views, dim=1), torch.stack(minu_views, dim=1)  # [800,V,256]
 
@@ -239,18 +243,20 @@ def main():
     y_scores = np.concatenate([y_scores_gen, y_scores_imp])
     y_true = np.concatenate([np.ones_like(y_scores_gen), np.zeros_like(y_scores_imp)])
 
-    print("\n================ 1:1 RESULT ================")
+    print("\n===== FAR与对应的FFR =====")
     for t, name in [(0.05, "5%"), (1e-3, "1/1k"), (1e-4, "1/10k"), (2e-5, "1/50k")]:
         fn, th = eval_at_target_from_scores(y_scores, y_true, t)
-        print(f"{name:<6}  FFR={fn*100:6.2f}%  thr≈{th:.4f}")
+        print(f"{name:<6}  FNMR={fn*100:6.2f}%  thr≈{th:.4f}")
 
     eer, eer_thr = compute_eer_from_scores(y_scores, y_true)
     fn_50k, th_50k = eval_at_target_from_scores(y_scores, y_true, TARGET_FMR)
 
     print("-------------------------------------------------------------")
-    print(f"[@1/50k] FFR={fn_50k*100:.2f}% thr≈{th_50k:.4f}")
+    print(f"[@1/50k] FNMR={fn_50k*100:.2f}% thr≈{th_50k:.4f}")
     print(f"EER = {eer*100:.2f}%   (threshold ≈ {eer_thr:.4f})")
     print("=============================================================\n")
 
 if __name__ == "__main__":
     main()
+
+    

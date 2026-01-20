@@ -4,7 +4,9 @@ import argparse
 import numpy as np
 import cv2
 import torch
-
+"""
+细节点热力图输出
+"""
 sys.path.append(os.getcwd())
 
 from flx.extractor.fixed_length_extractor import get_DeepPrint_TexMinu

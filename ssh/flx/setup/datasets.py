@@ -218,14 +218,14 @@ def get_fvc2004_db1a(root_dir: str) -> TransformedImageLoader:
     return Dataset(loader, loader.ids)
 '''
 def get_fvc2004_db1a(root_dir: str) -> TransformedImageLoader:
-    NUM_SUBJECTS = 3
+    NUM_SUBJECTS = 100
     loader = TransformedImageLoader(
         images=FVC2004Loader(root_dir),
         poses=None,
         transforms=[FVC_BINARIZATION],
     )
     assert loader.ids.num_subjects == NUM_SUBJECTS
-    assert len(loader.ids) == NUM_SUBJECTS 
+    assert len(loader.ids) == NUM_SUBJECTS*8
     return Dataset(loader, loader.ids)
 
 

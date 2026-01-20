@@ -4,6 +4,9 @@ import numpy as np
 import torch
 from sklearn.metrics import roc_curve
 
+"""
+普通评估
+"""
 # 设置项目路径
 notebook_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.dirname(notebook_dir)
